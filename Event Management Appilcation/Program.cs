@@ -40,6 +40,7 @@ builder.Services.AddAuthentication(options =>
     options.SaveToken = true;
     options.RequireHttpsMetadata = false;
     options.TokenValidationParameters = new TokenValidationParameters()
+
     {
         ValidateIssuer = true,
         ValidateAudience = true,
@@ -74,6 +75,8 @@ builder.Services.AddSwaggerGen(options =>
         Scheme = "Bearer"
     });
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    // Security additional requirements.
+
     {
         {
             new OpenApiSecurityScheme
