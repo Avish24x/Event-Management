@@ -8,11 +8,11 @@ namespace Event_Management_Appilcation.Controllers
     public class EventRegistrationController : ControllerBase
     {
 
-        private readOnly IConfiguration Config;
+        
 
         public EventRegistrationController(IConfiguration config)
         {
-            _config = config;
+            
         }
 
     }

@@ -1,16 +1,28 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Event_Management_Appilcation.Models
 {
     public class TeamMember
     {
+        [Key]
         public int TeamMemberID { get; set; }
-        public string Description { get; set; }
-        public char Password { get; set; }
-        public char email { get; set; }
+
+        [Required]
+        public string Username { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+
+        [Required]
+        public string Email { get; set; }
+
         public byte[] Profile_Image { get; set; }
 
-        [ForeignKey("GroupLeaderID")]
-        public GroupLeader GroupLeaderID { get; set; }
+        // Add other properties as needed
+
+        // Navigation property
+        public GroupLeader GroupLeader { get; set; }
+
+        public ICollection<Event> Events { get; set; }
     }
 }

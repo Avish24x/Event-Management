@@ -4,31 +4,35 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Event_Management_Appilcation.Models
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            this.SeedRoles(builder);
         }
+    }
 
+    public partial class ApplicationDbContext
+    {
+        // for checking that DI is getting a different instance each time when the dbcontext is injected in the context of a web request
+        private Guid _instanceId = Guid.NewGuid();
 
-
-        private void SeedRoles(ModelBuilder builder)
+        public static void AddBaseOptions(DbContextOptionsBuilder<ApplicationDbContext> builder, string connectionString)
         {
-            builder.Entity<IdentityRole>().HasData
-                (
-                new IdentityRole() { Name = "Super Admin", ConcurrencyStamp = "1", NormalizedName = "Super Admin" },
-                new IdentityRole() { Name = "Group Leader", ConcurrencyStamp = "2", NormalizedName = "Group Leader" },
-                new IdentityRole() { Name = "Team Leader", ConcurrencyStamp = "3", NormalizedName = "Team Leader" },
-                new IdentityRole() { Name = "User", ConcurrencyStamp = "4", NormalizedName = "User" }
+            if (builder == null)
+                throw new ArgumentNullException(nameof(builder));
 
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new ArgumentException("Connection string must be provided", nameof(connectionString));
 
-                );
+            builder.UseSqlServer(connectionString, x =>
+            {
+                x.EnableRetryOnFailure();
+            });
         }
     }
 }

@@ -5,12 +5,13 @@ namespace Event_Management_Appilcation.Models
     public class UserEvent
     {
         public int UserEventID { get; set; }
-        public DateOnly Registration { get; set; }
-        public Boolean AttendanceStatus { get; set; }
-        [ForeignKey("UserID")]
-        public User UserID { get; set; }
+        public DateTime Registration { get; set; }
+        public bool AttendanceStatus { get; set; }
+        
+        public int UserID { get; set; }
+        public User User { get; set; }
 
-        [ForeignKey("EventID")]
-        public Event EventID { get; set; }
+        public int EventID { get; set; }
+        public Event Event { get; set; }
     }
 }
