@@ -22,6 +22,8 @@ namespace Event_Management_Appilcation.Models
 
         public DbSet<GroupTable> Groups { get; set; }
 
+
+        public DbSet<Report> Reports { get; set; }
         public ApplicationUser(DbContextOptions<ApplicationUser> options) : base(options)
         {
 
@@ -122,6 +124,15 @@ namespace Event_Management_Appilcation.Models
                    .HasForeignKey(f => f.EventID)
                    .HasPrincipalKey(u => u.EventID)
                    .OnDelete(DeleteBehavior.NoAction);
+
+
+                builder.Entity<Report>(entity =>
+                {
+                    entity.HasKey(r => r.ReportID);
+                    entity.Property(r => r.Title).IsRequired();
+                    entity.Property(r => r.DateGenerated).IsRequired();
+                    // Add other configurations as needed...
+                });
             }); 
 
         }

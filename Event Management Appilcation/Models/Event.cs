@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Http;
+using Org.BouncyCastle.Asn1.Mozilla;
 
 namespace Event_Management_Appilcation.Models
 {
@@ -41,6 +42,8 @@ namespace Event_Management_Appilcation.Models
         public int GroupLeaderID { get; set; }
 
         public int TeamMemberID { get; set; }
+
+        public int GroupID { get; set; }
 
         // Navigation properties
         public GroupLeader GroupLeader { get; set; }
