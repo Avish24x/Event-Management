@@ -21,7 +21,7 @@ builder.Services.AddDbContext<ApplicationUser>(options => options.UseSqlServer(c
 // For Identity
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddEntityFrameworkStores<ApplicationUser>()
     .AddDefaultTokenProviders();
 
 

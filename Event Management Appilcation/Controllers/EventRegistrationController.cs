@@ -23,9 +23,11 @@ namespace Event_Management_Appilcation.Controllers
         }
 
         [HttpGet]
+
         public async Task<ActionResult<IEnumerable<Event_Management_Appilcation.Models.Event>>> GetEvents()
         {
             return await _context.Events.ToListAsync();
+
         }
 
         [HttpGet("{id}")]
