@@ -15,14 +15,14 @@ var connectionString = builder.Configuration.GetConnectionString("AdminContextCo
 
 // For Entity Framework
 var configuration = builder.Configuration;
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ConnStr")));
+builder.Services.AddDbContext<ApplicationUser>(options => options.UseSqlServer(configuration.GetConnectionString("ConnStr")));
 
 
 // For Identity
 builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
-
 
 
 
@@ -60,10 +60,21 @@ builder.Services.AddAuthentication(options =>
 var emailConfig = configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
 builder.Services.AddSingleton(emailConfig);
 
-builder.Services.AddScoped<IEmailService, EmailService>();
 // Add services to the container.
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddControllers();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        builder => builder
+            .WithOrigins("http://localhost:4200") // Replace with your frontend's origin
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -110,6 +121,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors("AllowAngularApp");
 
 app.MapControllers();
 

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
+﻿
 namespace Event_Management_Appilcation.Models
 {
     public class AdminGroupLeader

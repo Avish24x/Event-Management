@@ -45,8 +45,8 @@ namespace Event_Management_Appilcation.Models
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
             ConfigureAdminGroupLeaderRelationship(builder);
+            base.OnModelCreating(builder);
             SeedRoles(builder);
         }
 

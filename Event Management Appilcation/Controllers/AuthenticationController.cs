@@ -4,6 +4,7 @@ using Event_Management_Appilcation.Models;
 using Event_Management_Appilcation.Models.Authentication.Login;
 using Event_Management_Appilcation.Models.Authentication.SignUp;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -15,7 +16,8 @@ using System.Text;
 namespace Event_Management_Appilcation.Controllers
 {
 
-    [Route("api/[controller]")]
+    [Route("api/Authentication")]
+    //[EnableCors("AllowOrigin")]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
@@ -37,6 +39,7 @@ namespace Event_Management_Appilcation.Controllers
         }
 
         [HttpPost]
+        [Route("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterUser registerUser, string role)
 
         {

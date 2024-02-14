@@ -14,6 +14,8 @@ namespace Event_Management_Appilcation.Models
         {
             base.OnModelCreating(builder);
         }
+
+        public DbSet<User> Users { get; set; }
     }
 
     public partial class ApplicationDbContext
