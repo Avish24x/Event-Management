@@ -15,12 +15,13 @@ var connectionString = builder.Configuration.GetConnectionString("AdminContextCo
 
 // For Entity Framework
 var configuration = builder.Configuration;
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ConnStr")));
+builder.Services.AddDbContext<ApplicationUser>(options => options.UseSqlServer(configuration.GetConnectionString("ConnStr")));
 
 
 // For Identity
 builder.Services.AddDefaultIdentity<IdentityUser>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationUser>()
     .AddDefaultTokenProviders();
 
 
