@@ -17,7 +17,7 @@ namespace Event_Management_Appilcation.Models
 
         // Add properties for report data
         // For example:
-        public ICollection<Event> Events { get; set; }
+        public ICollection<Event>? Events { get; set; }
         public string Description { get; set; }
         // Add other properties as needed...
     }

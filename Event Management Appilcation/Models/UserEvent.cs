@@ -9,9 +9,9 @@ namespace Event_Management_Appilcation.Models
         public bool AttendanceStatus { get; set; }
         
         public int UserID { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
 
         public int EventID { get; set; }
-        public Event Event { get; set; }
+        public Event? Event { get; set; }
     }
 }

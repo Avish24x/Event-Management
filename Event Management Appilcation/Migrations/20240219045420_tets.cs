@@ -5,26 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Event_Management_Appilcation.Migrations
 {
-    public partial class InitialModelCreation : Migration
+    public partial class tets : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Admins",
-                columns: table => new
-                {
-                    AdminID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Profile_image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Admins", x => x.AdminID);
-                });
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -65,56 +49,18 @@ namespace Event_Management_Appilcation.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Reports",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ReportID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Profile_Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateGenerated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Groups",
-                columns: table => new
-                {
-                    GroupID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Objectives = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AdminID = table.Column<int>(type: "int", nullable: false),
-                    GroupLeaderID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Groups", x => x.GroupID);
-                    table.ForeignKey(
-                        name: "FK_Groups_Admins_AdminID",
-                        column: x => x.AdminID,
-                        principalTable: "Admins",
-                        principalColumn: "AdminID",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Reports", x => x.ReportID);
                 });
 
             migrationBuilder.CreateTable(
@@ -224,75 +170,6 @@ namespace Event_Management_Appilcation.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GroupLeaders",
-                columns: table => new
-                {
-                    GroupLeaderID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Profile_image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GroupID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GroupLeaders", x => x.GroupLeaderID);
-                    table.ForeignKey(
-                        name: "FK_GroupLeaders_Groups_GroupID",
-                        column: x => x.GroupID,
-                        principalTable: "Groups",
-                        principalColumn: "GroupID");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AdminGroupLeaders",
-                columns: table => new
-                {
-                    AdminID = table.Column<int>(type: "int", nullable: false),
-                    GroupLeaderID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AdminGroupLeaders", x => new { x.AdminID, x.GroupLeaderID });
-                    table.ForeignKey(
-                        name: "FK_AdminGroupLeaders_Admins_AdminID",
-                        column: x => x.AdminID,
-                        principalTable: "Admins",
-                        principalColumn: "AdminID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AdminGroupLeaders_GroupLeaders_GroupLeaderID",
-                        column: x => x.GroupLeaderID,
-                        principalTable: "GroupLeaders",
-                        principalColumn: "GroupLeaderID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TeamMembers",
-                columns: table => new
-                {
-                    TeamMemberID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Profile_Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    GroupLeaderID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TeamMembers", x => x.TeamMemberID);
-                    table.ForeignKey(
-                        name: "FK_TeamMembers_GroupLeaders_GroupLeaderID",
-                        column: x => x.GroupLeaderID,
-                        principalTable: "GroupLeaders",
-                        principalColumn: "GroupLeaderID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Events",
                 columns: table => new
                 {
@@ -305,26 +182,46 @@ namespace Event_Management_Appilcation.Migrations
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Attachment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Event_Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Sponsors = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
                     Outcome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
-                    GroupLeaderID = table.Column<int>(type: "int", nullable: false),
-                    TeamMemberID = table.Column<int>(type: "int", nullable: false)
+                    GroupID = table.Column<int>(type: "int", nullable: false),
+                    groupTableGroupID = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    ReportID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.EventID);
                     table.ForeignKey(
-                        name: "FK_Events_GroupLeaders_GroupLeaderID",
-                        column: x => x.GroupLeaderID,
-                        principalTable: "GroupLeaders",
-                        principalColumn: "GroupLeaderID");
+                        name: "FK_Events_Reports_ReportID",
+                        column: x => x.ReportID,
+                        principalTable: "Reports",
+                        principalColumn: "ReportID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Groups",
+                columns: table => new
+                {
+                    GroupID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Objectives = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EventID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Groups", x => x.GroupID);
                     table.ForeignKey(
-                        name: "FK_Events_TeamMembers_TeamMemberID",
-                        column: x => x.TeamMemberID,
-                        principalTable: "TeamMembers",
-                        principalColumn: "TeamMemberID");
+                        name: "FK_Groups_Events_EventID",
+                        column: x => x.EventID,
+                        principalTable: "Events",
+                        principalColumn: "EventID");
                 });
 
             migrationBuilder.CreateTable(
@@ -335,7 +232,7 @@ namespace Event_Management_Appilcation.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EventID = table.Column<int>(type: "int", nullable: false),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    DescriptionText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DescriptionText = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DescriptionDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -346,11 +243,52 @@ namespace Event_Management_Appilcation.Migrations
                         column: x => x.EventID,
                         principalTable: "Events",
                         principalColumn: "EventID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Role",
+                columns: table => new
+                {
+                    RoleID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoleDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.RoleID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Profile_Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RoleID = table.Column<int>(type: "int", nullable: true),
+                    GroupID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Feedbacks_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "Id");
+                        name: "FK_Users_Groups_GroupID",
+                        column: x => x.GroupID,
+                        principalTable: "Groups",
+                        principalColumn: "GroupID");
+                    table.ForeignKey(
+                        name: "FK_Users_Role_RoleID",
+                        column: x => x.RoleID,
+                        principalTable: "Role",
+                        principalColumn: "RoleID");
                 });
 
             migrationBuilder.CreateTable(
@@ -375,7 +313,7 @@ namespace Event_Management_Appilcation.Migrations
                         name: "FK_UserEvents_Users_UserID",
                         column: x => x.UserID,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "UserId");
                 });
 
             migrationBuilder.InsertData(
@@ -388,11 +326,6 @@ namespace Event_Management_Appilcation.Migrations
                     { "3", "3", "Team Leader", "Team Leader" },
                     { "4", "4", "User", "User" }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AdminGroupLeaders_GroupLeaderID",
-                table: "AdminGroupLeaders",
-                column: "GroupLeaderID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -434,14 +367,14 @@ namespace Event_Management_Appilcation.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_GroupLeaderID",
+                name: "IX_Events_groupTableGroupID",
                 table: "Events",
-                column: "GroupLeaderID");
+                column: "groupTableGroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_TeamMemberID",
+                name: "IX_Events_ReportID",
                 table: "Events",
-                column: "TeamMemberID");
+                column: "ReportID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Feedbacks_EventID",
@@ -454,31 +387,65 @@ namespace Event_Management_Appilcation.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupLeaders_GroupID",
-                table: "GroupLeaders",
-                column: "GroupID",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Groups_AdminID",
+                name: "IX_Groups_EventID",
                 table: "Groups",
-                column: "AdminID");
+                column: "EventID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TeamMembers_GroupLeaderID",
-                table: "TeamMembers",
-                column: "GroupLeaderID");
+                name: "IX_Role_UserId",
+                table: "Role",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserEvents_EventID",
                 table: "UserEvents",
                 column: "EventID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_GroupID",
+                table: "Users",
+                column: "GroupID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_RoleID",
+                table: "Users",
+                column: "RoleID");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Events_Groups_groupTableGroupID",
+                table: "Events",
+                column: "groupTableGroupID",
+                principalTable: "Groups",
+                principalColumn: "GroupID");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Feedbacks_Users_UserID",
+                table: "Feedbacks",
+                column: "UserID",
+                principalTable: "Users",
+                principalColumn: "UserId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Role_Users_UserId",
+                table: "Role",
+                column: "UserId",
+                principalTable: "Users",
+                principalColumn: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AdminGroupLeaders");
+            migrationBuilder.DropForeignKey(
+                name: "FK_Events_Groups_groupTableGroupID",
+                table: "Events");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Users_Groups_GroupID",
+                table: "Users");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Role_Users_UserId",
+                table: "Role");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -508,22 +475,19 @@ namespace Event_Management_Appilcation.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "Groups");
+
+            migrationBuilder.DropTable(
                 name: "Events");
+
+            migrationBuilder.DropTable(
+                name: "Reports");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "TeamMembers");
-
-            migrationBuilder.DropTable(
-                name: "GroupLeaders");
-
-            migrationBuilder.DropTable(
-                name: "Groups");
-
-            migrationBuilder.DropTable(
-                name: "Admins");
+                name: "Role");
         }
     }
 }
