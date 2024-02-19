@@ -4,6 +4,7 @@ using Event_Management_Appilcation.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Event_Management_Appilcation.Migrations
 {
     [DbContext(typeof(ApplicationUser))]
-    partial class ApplicationUserModelSnapshot : ModelSnapshot
+    [Migration("20240219045420_tets")]
+    partial class tets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +48,7 @@ namespace Event_Management_Appilcation.Migrations
                     b.Property<string>("Event_Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("GroupID")
+                    b.Property<int>("GroupID")
                         .HasColumnType("int");
 
                     b.Property<string>("Location")
@@ -542,7 +544,8 @@ namespace Event_Management_Appilcation.Migrations
                     b.HasOne("Event_Management_Appilcation.Models.Event", "Event")
                         .WithMany("GroupTables")
                         .HasForeignKey("EventID")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Event");
                 });
