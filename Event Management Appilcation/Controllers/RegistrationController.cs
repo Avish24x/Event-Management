@@ -9,9 +9,9 @@ namespace Event_Management_Appilcation.Controllers
     [ApiController]
     public class RegistrationController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationUser _context;
 
-        public RegistrationController(ApplicationDbContext context)
+        public RegistrationController(ApplicationUser context)
         {
             _context = context;
         }
