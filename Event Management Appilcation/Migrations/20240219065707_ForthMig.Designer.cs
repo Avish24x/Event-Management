@@ -4,6 +4,7 @@ using Event_Management_Appilcation.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Event_Management_Appilcation.Migrations
 {
     [DbContext(typeof(ApplicationUser))]
-    partial class ApplicationUserModelSnapshot : ModelSnapshot
+    [Migration("20240219065707_ForthMig")]
+    partial class ForthMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

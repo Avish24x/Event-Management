@@ -40,7 +40,7 @@ namespace Event_Management_Appilcation.Models
         public int Capacity { get; set; }
         public int? GroupID { get; set; } = null;
         public GroupTable? groupTable { get; set; }  
-        public int? UserId { get; set; }
+        public int? UserId { get; set; } = null;
 
         // Navigation properties
         public ICollection<UserEvent>? UserEvents { get; set; }

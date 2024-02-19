@@ -4,6 +4,7 @@ using Event_Management_Appilcation.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Event_Management_Appilcation.Migrations
 {
     [DbContext(typeof(ApplicationUser))]
-    partial class ApplicationUserModelSnapshot : ModelSnapshot
+    [Migration("20240206120446_InitialModelCreation")]
+    partial class InitialModelCreation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,6 +24,50 @@ namespace Event_Management_Appilcation.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Event_Management_Appilcation.Models.Admin", b =>
+                {
+                    b.Property<int>("AdminID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminID"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Profile_image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AdminID");
+
+                    b.ToTable("Admins");
+                });
+
+            modelBuilder.Entity("Event_Management_Appilcation.Models.AdminGroupLeader", b =>
+                {
+                    b.Property<int>("AdminID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupLeaderID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AdminID", "GroupLeaderID");
+
+                    b.HasIndex("GroupLeaderID");
+
+                    b.ToTable("AdminGroupLeaders");
+                });
+
             modelBuilder.Entity("Event_Management_Appilcation.Models.Event", b =>
                 {
                     b.Property<int>("EventID")
@@ -29,9 +75,6 @@ namespace Event_Management_Appilcation.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventID"), 1L, 1);
-
-                    b.Property<string>("Attachment")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
@@ -43,10 +86,7 @@ namespace Event_Management_Appilcation.Migrations
                     b.Property<DateTime>("Ending_Time")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Event_Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("GroupID")
+                    b.Property<int>("GroupLeaderID")
                         .HasColumnType("int");
 
                     b.Property<string>("Location")
@@ -64,9 +104,6 @@ namespace Event_Management_Appilcation.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ReportID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Sponsors")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -77,21 +114,18 @@ namespace Event_Management_Appilcation.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
+                    b.Property<int>("TeamMemberID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("groupTableGroupID")
-                        .HasColumnType("int");
-
                     b.HasKey("EventID");
 
-                    b.HasIndex("ReportID");
+                    b.HasIndex("GroupLeaderID");
 
-                    b.HasIndex("groupTableGroupID");
+                    b.HasIndex("TeamMemberID");
 
                     b.ToTable("Events");
                 });
@@ -108,6 +142,7 @@ namespace Event_Management_Appilcation.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DescriptionText")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EventID")
@@ -125,6 +160,41 @@ namespace Event_Management_Appilcation.Migrations
                     b.ToTable("Feedbacks");
                 });
 
+            modelBuilder.Entity("Event_Management_Appilcation.Models.GroupLeader", b =>
+                {
+                    b.Property<int>("GroupLeaderID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GroupLeaderID"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GroupID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Profile_image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GroupLeaderID");
+
+                    b.HasIndex("GroupID")
+                        .IsUnique();
+
+                    b.ToTable("GroupLeaders");
+                });
+
             modelBuilder.Entity("Event_Management_Appilcation.Models.GroupTable", b =>
                 {
                     b.Property<int>("GroupID")
@@ -133,11 +203,14 @@ namespace Event_Management_Appilcation.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GroupID"), 1L, 1);
 
+                    b.Property<int>("AdminID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EventID")
+                    b.Property<int>("GroupLeaderID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -150,105 +223,114 @@ namespace Event_Management_Appilcation.Migrations
 
                     b.HasKey("GroupID");
 
-                    b.HasIndex("EventID");
+                    b.HasIndex("AdminID");
 
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("Event_Management_Appilcation.Models.Report", b =>
+            modelBuilder.Entity("Event_Management_Appilcation.Models.TeamMember", b =>
                 {
-                    b.Property<int>("ReportID")
+                    b.Property<int>("TeamMemberID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReportID"), 1L, 1);
-
-                    b.Property<DateTime>("DateGenerated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ReportID");
-
-                    b.ToTable("Reports");
-                });
-
-            modelBuilder.Entity("Event_Management_Appilcation.Models.Role", b =>
-                {
-                    b.Property<int>("RoleID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleID"), 1L, 1);
-
-                    b.Property<string>("RoleDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RoleID");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Role");
-                });
-
-            modelBuilder.Entity("Event_Management_Appilcation.Models.User", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeamMemberID"), 1L, 1);
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("GroupLeaderID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Profile_Image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TeamMemberID");
+
+                    b.HasIndex("GroupLeaderID");
+
+                    b.ToTable("TeamMembers");
+                });
+
+            modelBuilder.Entity("Event_Management_Appilcation.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("GroupID")
-                        .HasColumnType("int");
-
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<byte[]>("Profile_Image")
                         .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Profile_Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("RoleID")
-                        .HasColumnType("int");
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId");
-
-                    b.HasIndex("GroupID");
-
-                    b.HasIndex("RoleID");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
@@ -505,17 +587,42 @@ namespace Event_Management_Appilcation.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Event_Management_Appilcation.Models.AdminGroupLeader", b =>
+                {
+                    b.HasOne("Event_Management_Appilcation.Models.Admin", "Admin")
+                        .WithMany("AdminGroupLeaders")
+                        .HasForeignKey("AdminID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Event_Management_Appilcation.Models.GroupLeader", "GroupLeader")
+                        .WithMany("AdminGroupLeaders")
+                        .HasForeignKey("GroupLeaderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Admin");
+
+                    b.Navigation("GroupLeader");
+                });
+
             modelBuilder.Entity("Event_Management_Appilcation.Models.Event", b =>
                 {
-                    b.HasOne("Event_Management_Appilcation.Models.Report", null)
+                    b.HasOne("Event_Management_Appilcation.Models.GroupLeader", "GroupLeader")
                         .WithMany("Events")
-                        .HasForeignKey("ReportID");
+                        .HasForeignKey("GroupLeaderID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                    b.HasOne("Event_Management_Appilcation.Models.GroupTable", "groupTable")
-                        .WithMany("events")
-                        .HasForeignKey("groupTableGroupID");
+                    b.HasOne("Event_Management_Appilcation.Models.TeamMember", "TeamMember")
+                        .WithMany("Events")
+                        .HasForeignKey("TeamMemberID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                    b.Navigation("groupTable");
+                    b.Navigation("GroupLeader");
+
+                    b.Navigation("TeamMember");
                 });
 
             modelBuilder.Entity("Event_Management_Appilcation.Models.Feedback", b =>
@@ -537,38 +644,37 @@ namespace Event_Management_Appilcation.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Event_Management_Appilcation.Models.GroupLeader", b =>
+                {
+                    b.HasOne("Event_Management_Appilcation.Models.GroupTable", "Group")
+                        .WithOne("GroupLeader")
+                        .HasForeignKey("Event_Management_Appilcation.Models.GroupLeader", "GroupID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+                });
+
             modelBuilder.Entity("Event_Management_Appilcation.Models.GroupTable", b =>
                 {
-                    b.HasOne("Event_Management_Appilcation.Models.Event", "Event")
-                        .WithMany("GroupTables")
-                        .HasForeignKey("EventID")
-                        .OnDelete(DeleteBehavior.NoAction);
+                    b.HasOne("Event_Management_Appilcation.Models.Admin", "Admin")
+                        .WithMany()
+                        .HasForeignKey("AdminID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Event");
+                    b.Navigation("Admin");
                 });
 
-            modelBuilder.Entity("Event_Management_Appilcation.Models.Role", b =>
+            modelBuilder.Entity("Event_Management_Appilcation.Models.TeamMember", b =>
                 {
-                    b.HasOne("Event_Management_Appilcation.Models.User", null)
-                        .WithMany("roles")
-                        .HasForeignKey("UserId");
-                });
+                    b.HasOne("Event_Management_Appilcation.Models.GroupLeader", "GroupLeader")
+                        .WithMany()
+                        .HasForeignKey("GroupLeaderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("Event_Management_Appilcation.Models.User", b =>
-                {
-                    b.HasOne("Event_Management_Appilcation.Models.GroupTable", "groupTable")
-                        .WithMany("users")
-                        .HasForeignKey("GroupID")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("Event_Management_Appilcation.Models.Role", "role")
-                        .WithMany("users")
-                        .HasForeignKey("RoleID")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("groupTable");
-
-                    b.Navigation("role");
+                    b.Navigation("GroupLeader");
                 });
 
             modelBuilder.Entity("Event_Management_Appilcation.Models.UserEvent", b =>
@@ -641,30 +747,34 @@ namespace Event_Management_Appilcation.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Event_Management_Appilcation.Models.Admin", b =>
+                {
+                    b.Navigation("AdminGroupLeaders");
+                });
+
             modelBuilder.Entity("Event_Management_Appilcation.Models.Event", b =>
                 {
                     b.Navigation("Feedbacks");
 
-                    b.Navigation("GroupTables");
-
                     b.Navigation("UserEvents");
+                });
+
+            modelBuilder.Entity("Event_Management_Appilcation.Models.GroupLeader", b =>
+                {
+                    b.Navigation("AdminGroupLeaders");
+
+                    b.Navigation("Events");
                 });
 
             modelBuilder.Entity("Event_Management_Appilcation.Models.GroupTable", b =>
                 {
-                    b.Navigation("events");
-
-                    b.Navigation("users");
+                    b.Navigation("GroupLeader")
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Event_Management_Appilcation.Models.Report", b =>
+            modelBuilder.Entity("Event_Management_Appilcation.Models.TeamMember", b =>
                 {
                     b.Navigation("Events");
-                });
-
-            modelBuilder.Entity("Event_Management_Appilcation.Models.Role", b =>
-                {
-                    b.Navigation("users");
                 });
 
             modelBuilder.Entity("Event_Management_Appilcation.Models.User", b =>
@@ -672,8 +782,6 @@ namespace Event_Management_Appilcation.Migrations
                     b.Navigation("Feedbacks");
 
                     b.Navigation("UserEvents");
-
-                    b.Navigation("roles");
                 });
 #pragma warning restore 612, 618
         }
