@@ -10,11 +10,11 @@ namespace Event_Management_Appilcation.Models
         public string Description { get; set; }
         public string Name { get; set; }
         public string Objectives { get; set; }
-        
-        public int AdminID { get; set; }
-        public Admin Admin { get; set; }
+        public int EventID { get; set; }
+        public Event? Event { get; set; }
+        public ICollection<Event>? events { get; set; }
+        public ICollection<User>? users { get; set; }
        
 
-        public GroupLeader GroupLeader { get; set; }
     }
 }
