@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Event_Management_Appilcation.Migrations
 {
     [DbContext(typeof(ApplicationUser))]
-    [Migration("20240219061828_SecondMig")]
-    partial class SecondMig
+    [Migration("20240219191846_last migration")]
+    partial class lastmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,7 +48,7 @@ namespace Event_Management_Appilcation.Migrations
                     b.Property<string>("Event_Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GroupID")
+                    b.Property<int?>("GroupID")
                         .HasColumnType("int");
 
                     b.Property<string>("Location")
@@ -139,7 +139,7 @@ namespace Event_Management_Appilcation.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EventID")
+                    b.Property<int?>("EventID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
