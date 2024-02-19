@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Event_Management_Appilcation.Migrations
 {
-    public partial class tets : Migration
+    public partial class lastmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -188,7 +188,7 @@ namespace Event_Management_Appilcation.Migrations
                     Rating = table.Column<int>(type: "int", nullable: false),
                     Outcome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
-                    GroupID = table.Column<int>(type: "int", nullable: false),
+                    GroupID = table.Column<int>(type: "int", nullable: true),
                     groupTableGroupID = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     ReportID = table.Column<int>(type: "int", nullable: true)
@@ -212,7 +212,7 @@ namespace Event_Management_Appilcation.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Objectives = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EventID = table.Column<int>(type: "int", nullable: false)
+                    EventID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
