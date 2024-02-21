@@ -1,5 +1,6 @@
-﻿using Event.Management.Service.Models;
-using Event.Management.Service.Services;
+﻿using Event.Management.Data.Models;
+using Event.Management.Service.Interfaces;
+using Event.Management.Service.Models;
 using Event_Management_Appilcation.Models;
 using Event_Management_Appilcation.Models.Authentication.Login;
 using Event_Management_Appilcation.Models.Authentication.SignUp;

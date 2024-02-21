@@ -1,8 +1,6 @@
-﻿
+﻿using Event.Management.Service.Models;
 
-using Event.Management.Service.Models;
-
-namespace Event.Management.Service.Services
+namespace Event.Management.Service.Interfaces
 {
     public interface IEmailService
     {

@@ -1,4 +1,5 @@
 ﻿
+using Event.Management.Service.Interfaces;
 using Event.Management.Service.Models;
 using MailKit.Net.Smtp;
 using MimeKit;

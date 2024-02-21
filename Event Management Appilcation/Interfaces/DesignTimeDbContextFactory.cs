@@ -1,6 +1,7 @@
 ﻿using Event_Management_Appilcation.Models;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
+using Event_Managemenent.Data.Models;
 
 namespace Event_Management_Appilcation.Interfaces
 {

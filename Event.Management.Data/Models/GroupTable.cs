@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Event.Management.Data.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Event_Management_Appilcation.Models
@@ -11,8 +12,8 @@ namespace Event_Management_Appilcation.Models
         public string Name { get; set; }
         public string Objectives { get; set; }
         public int? EventID { get; set; } = null;
-        public Event? Event { get; set; }
-        public ICollection<Event>? events { get; set; }
+        public SDEvent? Event { get; set; }
+        public ICollection<SDEvent>? events { get; set; }
         public ICollection<User>? users { get; set; }
        
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace Event_Management_Appilcation.Models.Authentication.Login
 {
@@ -6,7 +7,7 @@ namespace Event_Management_Appilcation.Models.Authentication.Login
     {
         [Required(ErrorMessage = "User Name is required")]
 
-        public string? Username  { get; set; }
+        public string? Username { get; set; }
 
 
         [Required(ErrorMessage = "Password is required")]
