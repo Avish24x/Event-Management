@@ -13,6 +13,7 @@ using Event.Management.Data.Models; // Make sure to adjust the namespace as per 
 namespace Event_Management_Appilcation.Controllers
 {
     [Route("api/[controller]")]
+    
     [ApiController]
     //[Authorize(Roles = "Super Admin, Group Leader, Team Leader, User")]
     public class EventRegistrationController : ControllerBase
