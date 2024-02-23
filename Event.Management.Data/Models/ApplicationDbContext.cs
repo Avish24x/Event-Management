@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Event.Management.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Event_Management_Appilcation.Models
+namespace Event_Managemenent.Data.Models
 {
     public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {

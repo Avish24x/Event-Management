@@ -1,5 +1,7 @@
+using Event.Management.Service.Interfaces;
 using Event.Management.Service.Models;
 using Event.Management.Service.Services;
+using Event_Managemenent.Data.Models;
 using Event_Management_Appilcation.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;

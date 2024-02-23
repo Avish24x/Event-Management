@@ -1,4 +1,4 @@
-﻿namespace Event_Management_Appilcation.Models
+﻿namespace Event_Managemenent.Data.Models
 {
     public class ChartData
     {

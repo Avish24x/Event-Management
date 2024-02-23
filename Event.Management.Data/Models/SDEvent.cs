@@ -1,14 +1,12 @@
-﻿using System;
+﻿using Event_Management_Appilcation.Models;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Http;
-using Org.BouncyCastle.Asn1.Mozilla;
 
-namespace Event_Management_Appilcation.Models
+namespace Event.Management.Data.Models
 {
-    public class Event
+    public class SDEvent
     {
-        public int EventID { get; set; }
+        [Key]
+        public int SDEventID { get; set; }
 
         public string Description { get; set; }
 
@@ -38,13 +36,19 @@ namespace Event_Management_Appilcation.Models
         public string Outcome { get; set; }
 
         public int Capacity { get; set; }
+
         public int? GroupID { get; set; } = null;
+
         public GroupTable? groupTable { get; set; }  
+
         public int? UserId { get; set; } = null;
 
         // Navigation properties
         public ICollection<UserEvent>? UserEvents { get; set; }
+
         public ICollection<GroupTable>? GroupTables { get; set; }
+
         public ICollection<Feedback>? Feedbacks { get; set; }
+
     }
 }

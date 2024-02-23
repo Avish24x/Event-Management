@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Event_Management_Appilcation.Models
+namespace Event.Management.Data.Models
 {
     public class Report
     {
@@ -17,7 +17,7 @@ namespace Event_Management_Appilcation.Models
 
         // Add properties for report data
         // For example:
-        public ICollection<Event>? Events { get; set; }
+        public ICollection<SDEvent>? Events { get; set; }
         public string Description { get; set; }
         // Add other properties as needed...
     }

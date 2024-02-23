@@ -1,4 +1,4 @@
-﻿namespace Event_Management_Appilcation.Models
+﻿namespace Event.Management.Data.Models
 {
     public class Response
         

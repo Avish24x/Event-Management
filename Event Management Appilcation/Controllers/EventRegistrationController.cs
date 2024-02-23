@@ -6,11 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Event_Management_Appilcation.Models; // Make sure to adjust the namespace as per your application's structure
+using Event_Management_Appilcation.Models;
+using Event_Managemenent.Data.Models;
+using Event.Management.Data.Models; // Make sure to adjust the namespace as per your application's structure
 
 namespace Event_Management_Appilcation.Controllers
 {
     [Route("api/[controller]")]
+    
     [ApiController]
     //[Authorize(Roles = "Super Admin, Group Leader, Team Leader, User")]
     public class EventRegistrationController : ControllerBase
@@ -22,16 +25,10 @@ namespace Event_Management_Appilcation.Controllers
             _context = context;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Event_Management_Appilcation.Models.Event>>> GetEvents()
-        //{
-        //    return await _context.Events.ToListAsync();
-        //}
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<Event_Management_Appilcation.Models.Event>> GetEvent(int id)
+        public async Task<ActionResult<SDEvent>> GetEvent(int id)
         {
-            var @event = await _context.Events.FindAsync(id);
+            var @event = await _context.SDEvents.FindAsync(id);
 
             if (@event == null)
             {
@@ -43,13 +40,13 @@ namespace Event_Management_Appilcation.Controllers
 
         private bool EventExists(int id)
         {
-            return _context.Events.Any(e => e.EventID == id);
+            return _context.SDEvents.Any(e => e.SDEventID == id);
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateEvent([FromBody] Event_Management_Appilcation.Models.Event @event)
+        public async Task<ActionResult> CreateEvent([FromBody] SDEvent @event)
         {
-            await _context.Events.AddAsync(@event);
+            await _context.SDEvents.AddAsync(@event);
             await _context.SaveChangesAsync();
             return Ok(@event + " fRegistered for the event successfully.");
         }
@@ -58,22 +55,22 @@ namespace Event_Management_Appilcation.Controllers
         public async Task<ActionResult> UnregisterFromEvent(int id)
         {
 
-            var Event_Management_Appilcation = await _context.Events.FindAsync(id);
+            var Event_Management_Appilcation = await _context.SDEvents.FindAsync(id);
             if(Event_Management_Appilcation == null)
                 {
                 return NotFound(); 
                 }
 
-            _context.Events.Remove(Event_Management_Appilcation);
+            _context.SDEvents.Remove(Event_Management_Appilcation);
             await _context.SaveChangesAsync();
 
             return Ok("Unregistered from the event successfully.");
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateEvent(int id, Event_Management_Appilcation.Models.Event @event)
+        public async Task<ActionResult> UpdateEvent(int id, SDEvent @event)
         {
-            if (id != @event.EventID)
+            if (id != @event.SDEventID)
             {
                 return BadRequest();
             }

@@ -1,4 +1,5 @@
-﻿using Event_Management_Appilcation.Models;
+﻿using Event_Managemenent.Data.Models;
+using Event_Management_Appilcation.Models;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
