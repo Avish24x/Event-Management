@@ -10,11 +10,11 @@ namespace Event_Management_Appilcation.Controllers
     [ApiController]
     [Route("api/eventRegistration")]
     //[Authorize(Roles = "Super Admin, Group Leader, Team Leader, User")]
-    public class EventRegistrationController : ControllerBase
+    public class EventController : ControllerBase
     {
         private readonly ApplicationUser _context;
 
-        public EventRegistrationController(ApplicationUser context)
+        public EventController(ApplicationUser context)
         {
             _context = context;
         }
@@ -25,6 +25,21 @@ namespace Event_Management_Appilcation.Controllers
         {
 
             var @event = await _context.SDEvents.FindAsync(id);
+
+            if (@event == null)
+            {
+                return NotFound();
+            }
+
+            return @event;
+        }
+
+        [HttpGet]
+        [Route("viewAllEvent")]
+        public ActionResult<IEnumerable<SDEvent>> GetEvent()
+        {
+
+            var @event =  _context.SDEvents.ToList();
 
             if (@event == null)
             {

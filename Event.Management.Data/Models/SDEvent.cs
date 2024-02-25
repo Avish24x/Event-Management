@@ -8,15 +8,17 @@ namespace Event.Management.Data.Models
         [Key]
         public int SDEventID { get; set; }
 
+        public string EventName { get; set; }
+
         public string Description { get; set; }
 
-        public DateTime Starting_Time { get; set; }
+        public string Starting_Time { get; set; }
 
-        public DateTime Ending_Time { get; set; }
+        public string Ending_Time { get; set; }
 
         public string Objective { get; set; }
 
-        public bool Status { get; set; }
+        public string Status { get; set; }
 
         public string Type { get; set; }
 
