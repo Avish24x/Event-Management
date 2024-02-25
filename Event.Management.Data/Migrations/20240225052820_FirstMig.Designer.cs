@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Event.Management.Data.Migrations
 {
     [DbContext(typeof(ApplicationUser))]
-    [Migration("20240220125946_FirstMig")]
+    [Migration("20240225052820_FirstMig")]
     partial class FirstMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -170,9 +170,6 @@ namespace Event.Management.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ReportID")
                         .HasColumnType("int");
 
@@ -328,8 +325,8 @@ namespace Event.Management.Data.Migrations
                         {
                             Id = "3",
                             ConcurrencyStamp = "3",
-                            Name = "Team Leader",
-                            NormalizedName = "Team Leader"
+                            Name = "Team Member",
+                            NormalizedName = "Team Member"
                         },
                         new
                         {
