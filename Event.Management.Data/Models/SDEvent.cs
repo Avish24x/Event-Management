@@ -31,8 +31,6 @@ namespace Event.Management.Data.Models
 
         public string Sponsors { get; set; }
 
-        public int Rating { get; set; }
-
         public string Outcome { get; set; }
 
         public int Capacity { get; set; }
