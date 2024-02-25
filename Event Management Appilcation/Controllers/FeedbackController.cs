@@ -22,6 +22,7 @@ namespace Event_Management_Appilcation.Controllers
 
         // GET: api/Feedback
         [HttpGet]
+        [Route("GetAllFeedback")]
         public async Task<ActionResult<IEnumerable<Feedback>>> GetFeedbacks()
         {
             return await _context.Feedbacks.ToListAsync();
@@ -39,6 +40,23 @@ namespace Event_Management_Appilcation.Controllers
             }
 
             return feedback;
+        }
+
+
+        // GET: api/Reporting/EventsByGroup/{groupId}
+        //[HttpGet("EventsByGroup/{groupId}")]
+        //public ActionResult<IEnumerable<SDEvent>> GetEventsByGroup(int groupId)
+        //{
+        //    var events = _context.SDEvents.Where(e => e.GroupID == groupId).ToList();
+        //    return events;
+        //}
+
+        [HttpGet]
+        [Route("GetFeebackByEventID")]
+        public ActionResult<IEnumerable<Feedback>> GetEventsByGroup(int eventId)
+        {
+            var events = _context.Feedbacks.Where(e => e.EventID == eventId).ToList();
+            return events;
         }
 
         // POST: api/Feedback
