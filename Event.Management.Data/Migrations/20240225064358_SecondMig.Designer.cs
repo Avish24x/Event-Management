@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Event.Management.Data.Migrations
 {
     [DbContext(typeof(ApplicationUser))]
-    [Migration("20240220125946_FirstMig")]
-    partial class FirstMig
+    [Migration("20240225064358_SecondMig")]
+    partial class SecondMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,6 +152,10 @@ namespace Event.Management.Data.Migrations
                     b.Property<DateTime>("Ending_Time")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("EventName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Event_Image")
                         .HasColumnType("nvarchar(max)");
 
@@ -169,9 +173,6 @@ namespace Event.Management.Data.Migrations
                     b.Property<string>("Outcome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
 
                     b.Property<int?>("ReportID")
                         .HasColumnType("int");
@@ -328,8 +329,8 @@ namespace Event.Management.Data.Migrations
                         {
                             Id = "3",
                             ConcurrencyStamp = "3",
-                            Name = "Team Leader",
-                            NormalizedName = "Team Leader"
+                            Name = "Team Member",
+                            NormalizedName = "Team Member"
                         },
                         new
                         {

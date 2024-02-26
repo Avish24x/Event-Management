@@ -4,6 +4,7 @@ using Event_Managemenent.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Event.Management.Data.Migrations
 {
     [DbContext(typeof(ApplicationUser))]
-    partial class ApplicationUserModelSnapshot : ModelSnapshot
+    [Migration("20240225052820_FirstMig")]
+    partial class FirstMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,10 +151,6 @@ namespace Event.Management.Data.Migrations
 
                     b.Property<DateTime>("Ending_Time")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("EventName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Event_Image")
                         .HasColumnType("nvarchar(max)");

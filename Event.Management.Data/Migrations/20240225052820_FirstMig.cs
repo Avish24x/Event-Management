@@ -217,7 +217,6 @@ namespace Event.Management.Data.Migrations
                     Attachment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Event_Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Sponsors = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false),
                     Outcome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
                     GroupID = table.Column<int>(type: "int", nullable: true),
@@ -319,7 +318,7 @@ namespace Event.Management.Data.Migrations
                 {
                     { "1", "1", "Super Admin", "Super Admin" },
                     { "2", "2", "Group Leader", "Group Leader" },
-                    { "3", "3", "Team Leader", "Team Leader" },
+                    { "3", "3", "Team Member", "Team Member" },
                     { "4", "4", "User", "User" }
                 });
 

@@ -1,33 +1,45 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Event_Management_Appilcation.Models;
 using Event_Managemenent.Data.Models;
-using Event.Management.Data.Models; // Make sure to adjust the namespace as per your application's structure
+using Event.Management.Data.Models;
+using System.Text.Json; // Make sure to adjust the namespace as per your application's structure
 
 namespace Event_Management_Appilcation.Controllers
 {
-    [Route("api/[controller]")]
+
     [ApiController]
+    [Route("api/eventRegistration")]
     //[Authorize(Roles = "Super Admin, Group Leader, Team Leader, User")]
-    public class EventRegistrationController : ControllerBase
+    public class EventController : ControllerBase
     {
         private readonly ApplicationUser _context;
 
-        public EventRegistrationController(ApplicationUser context)
+        public EventController(ApplicationUser context)
         {
             _context = context;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("viewEvent")]
         public async Task<ActionResult<SDEvent>> GetEvent(int id)
         {
+
             var @event = await _context.SDEvents.FindAsync(id);
+
+            if (@event == null)
+            {
+                return NotFound();
+            }
+
+            return @event;
+        }
+
+        [HttpGet]
+        [Route("viewAllEvent")]
+        public ActionResult<IEnumerable<SDEvent>> GetEvent()
+        {
+
+            var @event =  _context.SDEvents.ToList();
 
             if (@event == null)
             {
@@ -43,11 +55,12 @@ namespace Event_Management_Appilcation.Controllers
         }
 
         [HttpPost]
+        [Route("addEvent")]
         public async Task<ActionResult> CreateEvent([FromBody] SDEvent @event)
         {
             await _context.SDEvents.AddAsync(@event);
             await _context.SaveChangesAsync();
-            return Ok(@event + " fRegistered for the event successfully.");
+            return Ok(@event + "Registered for the event successfully.");
         }
 
         [HttpDelete("{id}")]
