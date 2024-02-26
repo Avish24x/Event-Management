@@ -71,9 +71,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp",
         builder => builder
-            .WithOrigins("http://localhost:4200") // Replace with your frontend's origin
+            .AllowAnyOrigin()
             .AllowAnyMethod()
-            .AllowAnyHeader());
+            .AllowAnyHeader()
+            .Build());
 });
 
 
@@ -120,11 +121,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+//app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+app.UseCors("AllowAngularApp");
+
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-app.UseCors("AllowAngularApp");
 
 app.MapControllers();
 

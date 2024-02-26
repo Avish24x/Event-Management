@@ -1,4 +1,6 @@
-﻿using Event_Management_Appilcation.Models;
+﻿using Event.Management.Data.Models;
+using Event_Managemenent.Data.Models;
+using Event_Management_Appilcation.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

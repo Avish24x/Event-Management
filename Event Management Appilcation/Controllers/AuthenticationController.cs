@@ -18,7 +18,6 @@ namespace Event_Management_Appilcation.Controllers
 {
 
     [Route("api/Authentication")]
-    [EnableCors("AllowOrigin")]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
